@@ -1,0 +1,58 @@
+{
+    "name": "@tntx/package-meta-react",
+    "library": "packageMetaReact",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "description": "TNT 组件元数据",
+    "scripts": {
+        "start": "webpack serve --config ./scripts/webpack.dev.js --mode development",
+        "build": "webpack --config ./scripts/webpack.prod.js --mode production",
+        "publish": "npm publish --access=public"
+    },
+    "keywords": [
+        "tnt",
+        "tntd",
+        "tntx",
+        "package-meta",
+        "package-meta-react"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tntd/package-meta-react"
+    },
+    "license": "MIT",
+    "files": [
+        "dist"
+    ],
+    "dependencies": {
+        "classnames": "^2.3.1"
+    },
+    "devDependencies": {
+        "@ant-design/icons": "^5.6.1",
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
+        "antd": "5",
+        "babel-loader": "^8.2.2",
+        "babel-preset-react-app": "^10.0.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "file-loader": "^6.2.0",
+        "less": "^4.1.1",
+        "less-loader": "^12.2.0",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-scripts": "^5.0.0",
+        "ts-loader": "^9.3.1",
+        "typescript": "^4.4.4",
+        "url-loader": "^4.1.1",
+        "webpack": "^5.70.0",
+        "webpack-cli": "^4.9.0",
+        "webpack-dev-server": "^4.9.0",
+        "webpack-merge": "^6.0.1"
+    },
+    "peerDependencies": {
+        "antd": ">=4.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    }
+}
