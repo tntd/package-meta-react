@@ -1,39 +1,40 @@
 .tntx-package-meta {
-  .author-header {
+  .tntx-package-meta-header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    height: 40px;
 
     h2 {
-      font-size: 24px !important;
-      flex: 1;
-      margin: 0 0 12px !important;
+      line-height: 1;
+      font-size: 22px !important;
+      margin: 0 !important;
     }
 
     .link-info {
-      flex: 1;
       text-align: right;
-      line-height: 40px;
+      color: #f55d00;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
 
-      a {
-        color: #f55d00;
+      &:hover {
+        color: #126BFB;
+        text-decoration: none;
+      }
 
-        &:hover {
-          color: #126BFB;
-          text-decoration: underline;
-        }
+      .link-info-icon {
+        margin-right: 8px;
+      }
 
-        i {
-          font-size: 16px;
-          margin-right: 4px;
-        }
-
-        span {
-          font-size: 14px;
-        }
+      span {
+        font-size: 16px;
       }
     }
   }
 
-  .author-body {
+  .tntx-package-meta-body {
     & {
       display: flex;
       background: #F8F9FA;
@@ -43,60 +44,63 @@
       box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.07);
     }
 
-    .avatar {
-      width: 40px;
-      margin-right: 12px;
-      cursor: pointer;
-
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid #fff;
-        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
-      }
-    }
-
-    .info {
-      position: relative;
+    .package-meta-body-content {
       flex: 1;
       display: flex;
 
-      h4 {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 8px;
+      .avatar {
+        width: 40px;
+        margin-right: 16px;
+        cursor: pointer;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 2px solid #fff;
+          box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.05);
+        }
       }
 
-      p {
+      .info {
+        position: relative;
         flex: 1;
-        font-size: 14px;
-        color: #333;
-        margin-top: 0;
-        margin-bottom: 0;
 
-        &:last-child {
-          margin-bottom: 0;
+        h4 {
+          font-size: 16px;
+          color: #333;
+          margin-bottom: 8px;
+          margin-top: 0;
+        }
+
+        p {
+          font-size: 14px;
+          color: #333;
+          margin-top: 0;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
 
-      .extra {
+    }
 
-        // & {
-        // 	position: absolute;
-        // 	right: 0;
-        // 	top: 0;
-        // }
-        .git-tag,
-        .link-icon {
-          float: right;
-          margin-left: 10px;
-        }
+    .package-meta-body-extra {
+      display: flex;
+
+      .extra-git-tag-list {
+        display: flex;
 
         .git-tag {
           height: 20px;
           line-height: 20px;
           font-size: 12px;
+          margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
 
           span,
           em {
@@ -131,6 +135,11 @@
             background: #46cc10;
           }
         }
+      }
+
+      .extra-link-list {
+        display: flex;
+        margin-left: 20px;
 
         .link-icon {
           width: 20px;
@@ -138,32 +147,15 @@
           line-height: 20px;
           text-align: center;
           display: inline-block;
+          margin-right: 10px;
+
+          &:last-child {
+            margin-right: 0;
+          }
 
           img {
             width: 20px;
             height: 20px;
-          }
-
-          i {
-            font-size: 18px;
-          }
-
-          &.npm .anticon,
-          &.npm .anticon svg {
-            fill: #CB3837;
-            color: #CB3837;
-          }
-
-          &.gitlab .anticon,
-          &.gitlab .anticon svg {
-            fill: #fc6d26;
-            color: #fc6d26
-          }
-
-          &.github .anticon,
-          &.github .anticon svg {
-            fill: #444;
-            color: #444;
           }
         }
       }
@@ -172,7 +164,7 @@
 }
 
 
-.author-component-use-table {
+.tntx-package-meta-use-table {
   & {
     font-family: verdana, arial, sans-serif;
     font-size: 11px;

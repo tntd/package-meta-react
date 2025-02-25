@@ -1,33 +1,31 @@
 import { ReactNode } from "react";
 import cn from "classnames";
-import { Tooltip } from "antd";
+import { Tooltip, Popover } from "antd";
 import { getColors } from "./utils";
+
 import githubImg from "./images/github.png";
 import giteeImg from "./images/gitee.png";
 import gitlabImg from "./images/gitlab.png";
 import npmImg from "./images/npm.png";
-import otherLinkImg from "./images/npm.png";
+import otherLinkImg from "./images/link.png";
+import HandIcon from "./HandIcon";
 
 import "./index.less";
 
 interface IProps {
-  title: string;
-  nickname?: string;
+  title?: string;
+  nickname?: string | string[];
   avatar?: ReactNode;
-  assist?: string;
-  description?: string;
-  typeText?: string;
-  mb?: number;
+  description: string;
   link?: {
     url?: string;
-    type?: string;
+    type?: "component" | "design";
   };
   extra?: {
-    // github, gitlab, npm, maturity, useList = []
     github?: string;
+    gitee?: string;
     gitlab?: string;
     npm?: string;
-    gitee?: string;
     otherLink?: string;
     maturity?: number;
     useList?: { name: string; version: string }[] | "all";
@@ -39,7 +37,6 @@ export default ({
   nickname,
   avatar,
   description,
-  mb = 20,
   link = {},
   extra = {},
 }: IProps) => {
@@ -63,27 +60,100 @@ export default ({
     maturityClass = "green";
   }
 
-  const colors = getColors(nickname || "a");
+  let computeNickname = "";
+  if (typeof nickname === "string") {
+    computeNickname = nickname;
+  }
+  if (Array.isArray(nickname)) {
+    computeNickname = nickname.join("、");
+  }
+
+  const colors = getColors(computeNickname || "a");
 
   return (
-    <div className="tntx-package-meta" style={{ marginBottom: mb || 0 }}>
-      <div className="author-header">
-        <h2>{title}</h2>
-        {url && type && (
-          <div className="link-info">
-            {/* <Link to={url}>
-                    <i className='iconfont icon-hand'></i>
-                    <span>{type === 'component' ? '查看配套组件' : '查看配套设计'}</span>
-                </Link> */}
+    <div className="tntx-package-meta">
+      {title && (
+        <div className="tntx-package-meta-header">
+          <h2>{title}</h2>
+          {url && type && (
+            <div className="link-info">
+              <span className="link-info-icon">
+                <HandIcon width="22px" height="22px" />
+              </span>
+              <span>
+                {type === "component" ? "查看配套组件" : "查看配套设计"}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+      <div
+        className="tntx-package-meta-body"
+        style={{ borderLeftColor: colors[0] }}
+      >
+        <div className="package-meta-body-content">
+          {avatar && <div className="avatar">{avatar}</div>}
+          <div className="info">
+            <h4>组件负责人：{computeNickname}</h4>
+            <p>组件简介：{description}</p>
           </div>
-        )}
-      </div>
-      <div className="author-body" style={{ borderLeftColor: colors[1] }}>
-        {avatar && <div className="avatar">{avatar}</div>}
-        <div className="info">
-          {/* <h4>{title}</h4> */}
-          <p>组件简介：{description}</p>
-          <div className="extra">
+        </div>
+        <div className="package-meta-body-extra">
+          {(maturity || useList) && (
+            <div className="extra-git-tag-list">
+              {maturity && (
+                <div
+                  className={cn("git-tag", { mr10: github || gitlab || npm })}
+                >
+                  <span>成熟度</span>
+                  <em className={maturityClass}>{`${maturity}%`}</em>
+                </div>
+              )}
+              {useList && useList !== "all" && useList.length > 0 && (
+                <Popover
+                  placement="bottomRight"
+                  content={
+                    <table className="tntx-package-meta-use-table">
+                      <thead>
+                        <th>项目名称</th>
+                        <th>版本</th>
+                      </thead>
+                      <tbody>
+                        {useList.map((item, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{item.name}</td>
+                              <td>{item.version}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  }
+                  title="项目使用"
+                  open
+                >
+                  <div className="git-tag">
+                    <span>项目使用</span>
+                    <em>{useList.length}</em>
+                  </div>
+                </Popover>
+              )}
+              {useList && useList === "all" && (
+                <Popover
+                  placement="bottomRight"
+                  content={<div>私有云所有业务系统</div>}
+                  title="项目使用"
+                >
+                  <div className="git-tag">
+                    <span>项目使用</span>
+                    <em>ALL</em>
+                  </div>
+                </Popover>
+              )}
+            </div>
+          )}
+          <div className="extra-link-list">
             {github && (
               <a className="link-icon github" href={github} target="_blank">
                 <Tooltip title="点击跳转到github">
@@ -91,17 +161,17 @@ export default ({
                 </Tooltip>
               </a>
             )}
-            {gitee && (
-              <a className="link-icon gitee" href={gitee} target="_blank">
-                <Tooltip title="点击跳转到gitee">
-                  <img src={giteeImg} />
-                </Tooltip>
-              </a>
-            )}
             {gitlab && (
               <a className="link-icon gitlab" href={gitlab} target="_blank">
                 <Tooltip title="点击跳转到gitlab">
                   <img src={gitlabImg} />
+                </Tooltip>
+              </a>
+            )}
+            {gitee && (
+              <a className="link-icon gitlab" href={gitlab} target="_blank">
+                <Tooltip title="点击跳转到gitee">
+                  <img src={giteeImg} />
                 </Tooltip>
               </a>
             )}
@@ -113,21 +183,11 @@ export default ({
               </a>
             )}
             {otherLink && (
-              <a className="link-icon link" href={otherLink} target="_blank">
-                <Tooltip title="点击跳转网页">
+              <a className="link-icon npm" href={otherLink} target="_blank">
+                <Tooltip title="点击跳转到链接">
                   <img src={otherLinkImg} />
                 </Tooltip>
               </a>
-            )}
-            {!!maturity && (
-              <div
-                className={cn("git-tag", {
-                  mr10: github || gitlab || npm,
-                })}
-              >
-                <span>成熟度</span>
-                <em className={maturityClass}>{`${maturity}%`}</em>
-              </div>
             )}
           </div>
         </div>
