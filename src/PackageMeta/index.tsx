@@ -1,6 +1,7 @@
+import { ReactNode } from "react";
 import cn from "classnames";
 import { Tooltip } from "antd";
-
+import { getColors } from "./utils";
 import githubImg from "./images/github.png";
 import giteeImg from "./images/gitee.png";
 import gitlabImg from "./images/gitlab.png";
@@ -11,7 +12,8 @@ import "./index.less";
 
 interface IProps {
   title: string;
-  account: string;
+  nickname?: string;
+  avatar?: ReactNode;
   assist?: string;
   description?: string;
   typeText?: string;
@@ -34,7 +36,8 @@ interface IProps {
 
 export default ({
   title,
-  account = "someBody",
+  nickname,
+  avatar,
   description,
   mb = 20,
   link = {},
@@ -51,13 +54,6 @@ export default ({
     useList = [],
   } = extra;
 
-  const getUser = (uid: any) => {
-    let userItem = uedPartners.find((user) => user.account === uid);
-    return userItem
-      ? userItem
-      : uedPartners.find((user) => user.account === "someBody");
-  };
-
   let maturityClass = "green";
   if (maturity < 75) {
     maturityClass = "red";
@@ -67,7 +63,8 @@ export default ({
     maturityClass = "green";
   }
 
-  let authorInfo: any = getUser(account);
+  const colors = getColors(nickname || "a");
+
   return (
     <div className="tntx-package-meta" style={{ marginBottom: mb || 0 }}>
       <div className="author-header">
@@ -81,11 +78,10 @@ export default ({
           </div>
         )}
       </div>
-      <div
-        className="author-body"
-        style={{ borderLeftColor: authorInfo.color }}
-      >
+      <div className="author-body" style={{ borderLeftColor: colors[1] }}>
+        {avatar && <div className="avatar">{avatar}</div>}
         <div className="info">
+          {/* <h4>{title}</h4> */}
           <p>组件简介：{description}</p>
           <div className="extra">
             {github && (
@@ -97,7 +93,7 @@ export default ({
             )}
             {gitee && (
               <a className="link-icon gitee" href={gitee} target="_blank">
-                <Tooltip title="点击跳转到npm">
+                <Tooltip title="点击跳转到gitee">
                   <img src={giteeImg} />
                 </Tooltip>
               </a>
@@ -118,7 +114,7 @@ export default ({
             )}
             {otherLink && (
               <a className="link-icon link" href={otherLink} target="_blank">
-                <Tooltip title="点击跳转">
+                <Tooltip title="点击跳转网页">
                   <img src={otherLinkImg} />
                 </Tooltip>
               </a>

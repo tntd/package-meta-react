@@ -1,6 +1,8 @@
+// @ts-nocheck
 import React from "react";
 import PackageMeta from "../src";
 import { message, Row, Col } from "antd";
+import avatarImg from "./avatar3.jpg";
 import {
   AreaChartOutlined,
   DotChartOutlined,
@@ -9,40 +11,19 @@ import {
 } from "@ant-design/icons";
 
 export default () => {
-  const list: any = [
-    {
-      title: "内容生成量",
-      count: "5367",
-      color: "#F78435",
-      icon: <AreaChartOutlined />,
-    },
-    {
-      title: "内容点击量",
-      count: "123",
-      color: "#6BCE6B",
-      icon: <DotChartOutlined />,
-    },
-    {
-      title: "内容曝光量",
-      count: "5643",
-      color: "#59a6e5",
-      icon: <HeartOutlined />,
-    },
-    {
-      title: "用户活跃数",
-      count: "7779",
-      color: "#ec7f7f",
-      icon: <UserOutlined />,
-    },
-  ];
   return (
     <div style={{ padding: "10px 30px" }}>
-      <h3>默认主题</h3>
       <PackageMeta
-        key={index}
-        {...item}
-        onClick={() => {
-          message.info("点击了卡片");
+        title="Disk资源管理"
+        description="一个小而美的资源管理UI组件，通过简单的配置就有好的用户体验，上手简单，搭配灵活，支持folder文件夹、file文件、link链接；"
+        nickname="moco"
+        avatar={<img src={avatarImg} />}
+        extra={{
+          npm: "https://www.npmjs.com/package/disk-resource-manager",
+          github: "https://github.com/rookie-ninja/disk-resource-manager",
+          gitlab: "https://gitlab.com/rookie-ninja/disk-resource-manager",
+          gitee: "https://gitee.com/rookie-ninja/disk-resource-manager",
+          maturity: 85,
         }}
       />
     </div>
