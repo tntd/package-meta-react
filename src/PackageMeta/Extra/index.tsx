@@ -43,9 +43,9 @@ export default ({ extra = {} }: IProps) => {
 
   return (
     <div className="package-meta-body-extra">
-      {(maturity || useList) && (
+      {(maturity > 0 || useList) && (
         <div className="extra-git-tag-list">
-          {maturity && (
+          {maturity > 0 && (
             <div className={cn("git-tag", { mr10: github || gitlab || npm })}>
               <span>成熟度</span>
               <em className={maturityClass}>{`${maturity}%`}</em>
