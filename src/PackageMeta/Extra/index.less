@@ -1,0 +1,76 @@
+.tntx-package-meta {
+    .package-meta-body-extra {
+        display: flex;
+
+        .extra-git-tag-list {
+            display: flex;
+
+            .git-tag {
+                height: 20px;
+                line-height: 20px;
+                font-size: 12px;
+                margin-right: 10px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                span,
+                em {
+                    display: inline-block;
+                    padding: 0 10px;
+                }
+
+                span {
+                    background: #555;
+                    color: #fff;
+                    border-radius: 2px 0 0 2px;
+                    padding: 0 10px;
+                }
+
+                em {
+                    background: #46cc10;
+                    color: #fff;
+                    border-radius: 0 2px 2px 0;
+                    padding: 0 6px;
+                    font-style: normal;
+                }
+
+                em.red {
+                    background: #EF6555;
+                }
+
+                em.yellow {
+                    background: #F7B035;
+                }
+
+                em.green {
+                    background: #46cc10;
+                }
+            }
+        }
+
+        .extra-link-list {
+            display: flex;
+            margin-left: 20px;
+
+            .link-icon {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                display: inline-block;
+                margin-right: 10px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
