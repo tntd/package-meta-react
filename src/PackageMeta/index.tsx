@@ -7,9 +7,11 @@ import "./index.less";
 
 interface IProps {
   title?: string;
-  nickname?: string | string[];
-  avatar?: ReactNode;
   description: string;
+  author?: {
+    nickname: string | string[];
+    avatar: ReactNode;
+  };
   link?: {
     url?: string;
     type?: "component" | "design";
@@ -27,13 +29,13 @@ interface IProps {
 
 export default ({
   title,
-  nickname,
-  avatar,
+  author,
   description,
   link = {},
   extra = {},
 }: IProps) => {
   const { url, type } = link;
+  const { nickname, avatar } = author || {};
 
   let computeNickname = "";
   if (typeof nickname === "string") {
@@ -66,14 +68,33 @@ export default ({
         className="tntx-package-meta-body"
         style={{ borderLeftColor: colors[0] }}
       >
-        <div className="package-meta-body-content">
-          {avatar && <div className="avatar">{avatar}</div>}
-          <div className="info">
-            <h4>组件负责人：{computeNickname}</h4>
-            <p>组件简介：{description}</p>
-          </div>
-        </div>
-        <Extra extra={extra} />
+        {author && (
+          <>
+            <div className="package-meta-body-content">
+              {avatar && <div className="avatar">{avatar}</div>}
+              <div className="info">
+                <div className="info-header">
+                  <h4 style={{ marginBottom: 0 }}>
+                    组件负责人：{computeNickname}
+                  </h4>
+                  <Extra extra={extra} />
+                </div>
+                <p>组件简介：{description}</p>
+              </div>
+            </div>
+          </>
+        )}
+        {!author && (
+          <>
+            <div className="package-meta-body-content">
+              {avatar && <div className="avatar">{avatar}</div>}
+              <div className="info">
+                <p>组件简介：{description}</p>
+              </div>
+            </div>
+            <Extra extra={extra} />
+          </>
+        )}
       </div>
     </div>
   );
